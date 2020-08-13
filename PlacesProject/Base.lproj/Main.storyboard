@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View-->
+        <!--My Places-->
         <scene sceneID="b4v-WF-XYT">
             <objects>
                 <tableViewController id="5Hj-80-byb" customClass="MainViewController" customModule="PlacesProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -15,26 +15,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="96" id="3Js-cR-Sp2" customClass="PlacesCellController" customModule="PlacesProject" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="96"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="95" id="3Js-cR-Sp2" customClass="PlacesCellController" customModule="PlacesProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Js-cR-Sp2" id="aUO-pW-Xta">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="zio-pB-ruZ">
-                                            <rect key="frame" x="16" y="8" width="382" height="80"/>
+                                            <rect key="frame" x="10" y="5" width="394" height="85"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="GgT-c4-UVb">
-                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgT-c4-UVb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="b6Y-bL-8Hi"/>
-                                                        <constraint firstAttribute="height" constant="80" id="cgR-ZV-yXh"/>
+                                                        <constraint firstAttribute="width" constant="85" id="b6Y-bL-8Hi"/>
+                                                        <constraint firstAttribute="height" constant="85" id="cgR-ZV-yXh"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="CtE-Ul-uRf">
-                                                    <rect key="frame" x="98" y="4" width="284" height="72"/>
+                                                    <rect key="frame" x="103" y="6.6666666666666643" width="291" height="72"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpy-5r-fi3">
                                                             <rect key="frame" x="0.0" y="0.0" width="51.666666666666664" height="24"/>
@@ -60,10 +60,10 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="zio-pB-ruZ" firstAttribute="leading" secondItem="aUO-pW-Xta" secondAttribute="leading" constant="16" id="03o-Si-c0h"/>
-                                        <constraint firstAttribute="trailing" secondItem="zio-pB-ruZ" secondAttribute="trailing" constant="16" id="Uri-Qm-37p"/>
-                                        <constraint firstAttribute="bottom" secondItem="zio-pB-ruZ" secondAttribute="bottom" constant="8" id="j4O-ti-wZ2"/>
-                                        <constraint firstItem="zio-pB-ruZ" firstAttribute="top" secondItem="aUO-pW-Xta" secondAttribute="top" constant="8" id="kOf-b9-50f"/>
+                                        <constraint firstItem="zio-pB-ruZ" firstAttribute="leading" secondItem="aUO-pW-Xta" secondAttribute="leading" constant="10" id="03o-Si-c0h"/>
+                                        <constraint firstAttribute="trailing" secondItem="zio-pB-ruZ" secondAttribute="trailing" constant="10" id="Uri-Qm-37p"/>
+                                        <constraint firstAttribute="bottom" secondItem="zio-pB-ruZ" secondAttribute="bottom" constant="5" id="j4O-ti-wZ2"/>
+                                        <constraint firstItem="zio-pB-ruZ" firstAttribute="top" secondItem="aUO-pW-Xta" secondAttribute="top" constant="5" id="kOf-b9-50f"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -79,7 +79,7 @@
                             <outlet property="delegate" destination="5Hj-80-byb" id="WIL-tg-n6B"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Main View" id="CtR-7k-FFV"/>
+                    <navigationItem key="navigationItem" title="My Places" id="CtR-7k-FFV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0BQ-Jq-nNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,6 +93,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FX5-u9-SSf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="SinhalaSangamMN-Bold" family="Sinhala Sangam MN" pointSize="17"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

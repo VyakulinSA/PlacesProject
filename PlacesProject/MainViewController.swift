@@ -43,7 +43,7 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PlacesCellController
         cell.imageOutlet.image = UIImage(named: restaurantNames[indexPath.row])
-        cell.imageOutlet.layer.cornerRadius = 5
+        cell.imageOutlet.layer.cornerRadius = cell.imageOutlet.frame.size.height / 2
         cell.imageOutlet.clipsToBounds = true
         cell.nameLabel.text = restaurantNames[indexPath.row]
         cell.locationLabel.text = "Самара"
