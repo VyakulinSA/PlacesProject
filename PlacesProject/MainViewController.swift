@@ -6,25 +6,22 @@
 //  Copyright © 2020 Вякулин Сергей. All rights reserved.
 //
 
+import RealmSwift
 import UIKit
 
 class MainViewController: UITableViewController {
     
-    let restaurantNames = [
-        "Burger Heroes", "Kitchen", "Bonsai", "Дастархан",
-        "Индокитай", "X.O", "Балкан Гриль", "Sherlock Holmes",
-        "Speak Easy", "Morris Pub", "Вкусные истории",
-        "Классик", "Love&Life", "Шок", "Бочка"
-    ]
-
+    var places: Results<Place>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        places = realm.objects(Place.self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -36,18 +33,20 @@ class MainViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return restaurantNames.count
+        return places.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PlacesCellController
-        cell.imageOutlet.image = UIImage(named: restaurantNames[indexPath.row])
+        let place = places[indexPath.row]
+        
+        cell.imageOutlet.image = UIImage(data: place.imageData!)
         cell.imageOutlet.layer.cornerRadius = cell.imageOutlet.frame.size.height / 2
         cell.imageOutlet.clipsToBounds = true
-        cell.nameLabel.text = restaurantNames[indexPath.row]
-        cell.locationLabel.text = "Самара"
-        cell.typeLabel.text = "Бар"
+        cell.nameLabel.text = place.name
+        cell.locationLabel.text = place.location
+        cell.typeLabel.text = place.type
         return cell
     }
     
@@ -59,18 +58,20 @@ class MainViewController: UITableViewController {
         return true
     }
     
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
-    */
+    
+
+    
+//     Override to support editing the table view.
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            places.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
+    
 
     /*
     // Override to support rearranging the table view.
@@ -97,4 +98,13 @@ class MainViewController: UITableViewController {
     }
     */
 
+    @IBAction func unwindSegue(segue: UIStoryboardSegue){
+        if segue.identifier == "Save"{
+            guard let svc = segue.source as? NewPlaceController else {return}
+            
+            svc.saveNewPlace()
+//            places.append(svc.newPlace!)
+            tableView.reloadData()
+        }
+    }
 }
