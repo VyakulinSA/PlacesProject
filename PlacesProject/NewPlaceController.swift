@@ -10,6 +10,7 @@ import UIKit
 
 class NewPlaceController: UITableViewController {
 
+    var currentPlace: Place? //создаем переменную для передачи значений на этот контроллер при редактировании
     
     @IBOutlet weak var newPlaceImage: UIImageView!
     @IBOutlet weak var nameTF: UITextField!
@@ -17,7 +18,6 @@ class NewPlaceController: UITableViewController {
     @IBOutlet weak var typeTF: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var newPlace: Place?
     var imageIsChange = false
     
     override func viewDidLoad() {
@@ -30,6 +30,7 @@ class NewPlaceController: UITableViewController {
         nameTF.addTarget(self, action: #selector(textFieldChange), for: .editingChanged)
         locationTF.addTarget(self, action: #selector(textFieldChange), for: .editingChanged)
         
+        setupEditScreen()
         
     }
 
@@ -66,7 +67,7 @@ class NewPlaceController: UITableViewController {
         }
     }
     
-    func saveNewPlace() {
+    func savePlace() {
         var resImage: UIImage?
         
         if imageIsChange == false{
@@ -75,14 +76,51 @@ class NewPlaceController: UITableViewController {
             resImage = newPlaceImage.image
         }
 
-
-//        newPlace = Place(name: nameTF.text!,
-//                         location: locationTF.text,
-//                         type: typeTF.text,
-//                         image: resImage,
-//                         restaurantImage: nil)
+        let newPlace = Place(name: nameTF.text!,
+                         location: locationTF.text,
+                         type: typeTF.text,
+                         imageData: resImage?.pngData())
+        
+        if currentPlace != nil{ //Если мы редактируем запись (т.е. на экран была передана информация) то мы не добавляем новую а редактируем текущую.
+            //Делается следующим образом: пытаемся записать в базу, если успешно, присваиваем текущей строке в базе currentPlace (переданной на страницу редактирования) новые значения из newPlace (которые считаны уже с экрана)
+            //В связи с этим не требуется никаких дополнительных методов Realm для редактирования или сохранения изменений, т.к. мы в текущем моменте производим изменения в базе по строке, которая была передана с начальной страницы в значение currentPlace текущей страницы (редактирования
+            try! realm.write {
+                currentPlace?.name = newPlace.name
+                currentPlace?.location = newPlace.location
+                currentPlace?.type = newPlace.type
+                currentPlace?.imageData = newPlace.imageData
+            }
+        } else {
+            StorageManage.saveObject(newPlace)
+        }
+        
         
     }
+    
+    private func setupEditScreen() {
+        if currentPlace != nil {
+            setupNavigationBar()
+            imageIsChange = true
+            
+            guard let data = currentPlace?.imageData, let image = UIImage(data: data) else {return}
+            
+            nameTF.text = currentPlace?.name
+            locationTF.text = currentPlace?.location
+            typeTF.text = currentPlace?.type
+            newPlaceImage.image = image
+            newPlaceImage.contentMode = .scaleAspectFill
+        }
+    }
+    
+    private func setupNavigationBar() { //создаем метод для настройки NavigationBar при переходе на экран в качестве редактора
+        if let topItem = navigationController?.navigationBar.topItem { //для того, чтобы удалить название кнопки (написано к какому контроллеру идет возврат) надо поменять название на пустое или любое другое
+            topItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        }
+        navigationItem.leftBarButtonItem = nil //убираем кнопку Cancel т.к. мы переходим для редактирования
+        title = currentPlace?.name // передаем наименование текущего места
+        saveButton.isEnabled = true //всегда активна, т.к. поля заполнены
+    }
+    
     @IBAction func cancelAction(_ sender: Any) {
         dismiss(animated: true)
     }

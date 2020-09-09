@@ -6,7 +6,7 @@
          contextName = "MainViewController.viewDidLoad():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "places">
+               value = "places.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

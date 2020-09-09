@@ -11,12 +11,12 @@ import UIKit
 
 class MainViewController: UITableViewController {
     
-    var places: Results<Place>!
+    lazy var places = realm.objects(Place.self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        places = realm.objects(Place.self)
+        loadDefaultPlace()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,14 +26,10 @@ class MainViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return places.count
+        return places.isEmpty ? 0 : places.count
     }
 
     
@@ -65,12 +61,12 @@ class MainViewController: UITableViewController {
 
     
 //     Override to support editing the table view.
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            places.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            StorageManage.delObject(places[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
 
     /*
@@ -88,23 +84,37 @@ class MainViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showDetail" { //смотрим куда идет переход
+            let nvc = segue.destination as! NewPlaceController //кастим до нужного контроллера
+            guard let index = tableView.indexPathForSelectedRow?.row else {return} //получаем индекс выбранной строки для редаетирования
+            nvc.currentPlace = places[index] //передаем на другой экран значение (в данном случае из массива places по индексу строки)
+            
+        }
     }
-    */
+    
 
     @IBAction func unwindSegue(segue: UIStoryboardSegue){
         if segue.identifier == "Save"{
             guard let svc = segue.source as? NewPlaceController else {return}
             
-            svc.saveNewPlace()
+            svc.savePlace()
 //            places.append(svc.newPlace!)
             tableView.reloadData()
         }
+    }
+}
+
+extension MainViewController {
+    
+    func loadDefaultPlace(){
+        let defPlaces = Place()
+        guard places.isEmpty else {return}
+            defPlaces.defaultPlaces()
+            StorageManage.saveObject(defPlaces)
     }
 }
