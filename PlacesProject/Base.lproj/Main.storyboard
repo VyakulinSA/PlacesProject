@@ -144,6 +144,31 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="140" id="PNe-fM-UqY">
+                                        <rect key="frame" x="0.0" y="473" width="414" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PNe-fM-UqY" id="rfi-At-WZM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="G7v-W8-uBe" customClass="RaitingControl" customModule="PlacesProject" customModuleProvider="target">
+                                                    <rect key="frame" x="81" y="48" width="252" height="44"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="size" keyPath="starsSize">
+                                                            <size key="value" width="44" height="44"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="G7v-W8-uBe" firstAttribute="centerY" secondItem="rfi-At-WZM" secondAttribute="centerY" id="a8s-Fs-7zh"/>
+                                                <constraint firstItem="G7v-W8-uBe" firstAttribute="centerX" secondItem="rfi-At-WZM" secondAttribute="centerX" id="kQp-SS-AYO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -186,7 +211,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lmv-b4-Lnn">
-                                <rect key="frame" x="0.0" y="83" width="414" height="653"/>
+                                <rect key="frame" x="0.0" y="76" width="414" height="660"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="95" id="pdw-wa-Qgq" customClass="PlacesCellController" customModule="PlacesProject" customModuleProvider="target">
@@ -277,7 +302,7 @@
                             <constraint firstItem="Lmv-b4-Lnn" firstAttribute="leading" secondItem="f0H-yb-Ahz" secondAttribute="leading" id="a47-WB-Xkz"/>
                             <constraint firstItem="Lmv-b4-Lnn" firstAttribute="trailing" secondItem="f0H-yb-Ahz" secondAttribute="trailing" id="drR-yp-qqh"/>
                             <constraint firstItem="Lmv-b4-Lnn" firstAttribute="bottom" secondItem="f0H-yb-Ahz" secondAttribute="bottom" id="gIq-F3-17R"/>
-                            <constraint firstItem="Lmv-b4-Lnn" firstAttribute="top" secondItem="9lo-U2-cue" secondAttribute="bottom" constant="8" id="gP4-y9-aun"/>
+                            <constraint firstItem="Lmv-b4-Lnn" firstAttribute="top" secondItem="9lo-U2-cue" secondAttribute="bottom" constant="1" id="gP4-y9-aun"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f0H-yb-Ahz"/>
                     </view>

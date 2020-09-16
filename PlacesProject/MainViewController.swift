@@ -11,8 +11,17 @@ import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    lazy var places = realm.objects(Place.self)
-    var ascendingSorting = true //создаем свойство для хранения информации, в каком направлении проводить сортировку(реверс)
+    private let searchController = UISearchController(searchResultsController: nil) //Создаем экземпляр класса SearchController с инициализатором в который передаем nil (в этот метод мы передаем информацию, на какой ViewController передавать найденные значения (nil - передача в текущий) и идем делать расширение для его работы
+    private lazy var places = realm.objects(Place.self)
+    private var filteredPlaces: Results<Place>! //создаем экземпляр класса нашей модели
+    private var ascendingSorting = true //создаем свойство для хранения информации, в каком направлении проводить сортировку(реверс)
+    private var searchBarIsEmpty: Bool { //создаем логическое свойство в зависимости от наличия текста в строке поиска
+        guard let searchText = searchController.searchBar.text else {return false} // если текст = nil то возвращаем false
+        return searchText.isEmpty //если текст есть или нажимался поиск, то возвращаем значение isEmpty
+    }
+    private var isFiltering: Bool { // создаем свойство которое возвращает true  если searchController активен и в нем есть текст
+        return searchController.isActive && !searchBarIsEmpty
+    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl! //Outlet для считывания SegmentedControl
@@ -22,25 +31,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         loadDefaultPlace()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        //Создание SearchController на NavigationBar
+        searchController.searchResultsUpdater = self //указываем где будут отображаться результаты поиска (пишем self - значит на текущем представлении)
+        searchController.obscuresBackgroundDuringPresentation = false //По умолчанию результат поиска не позволяет взаимодействовать с элементами на экране, если отключаем параметр, то можем взаимодействовать как с основным -> указываем, что при поиске, основное содержимое не должно скрываться
+        searchController.searchBar.placeholder = "Search" //указываем что будет отображаться в строке поиска
+        navigationItem.searchController = searchController //присваиваем на NavigationBar наш SearchController
+        definesPresentationContext = true //позволяет опустить строку поиска, при переходе на другой экран
+        
+        
+        
     }
 
     // MARK: - Table view data source
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if isFiltering{ // если мы ввели какойто поисковой запрос, то на экран выводим кол-во элементов из отфильтрованного массива, а не полностью
+            return filteredPlaces.count
+        }
         return places.isEmpty ? 0 : places.count
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PlacesCellController
-        let place = places[indexPath.row]
+        var place = Place() // создаем пустой объект нашей модели
+        
+        if isFiltering{ //если мы ввели какойто поисковой запрос, то на экран выводим элементы из отфильтрованного массива
+            place = filteredPlaces[indexPath.row]
+        } else { //если поисковой запрос пустой, то выводим полностью
+            place = places[indexPath.row]
+        }
+        
         cell.frame.size.height = 85
         
         cell.imageOutlet.image = UIImage(data: place.imageData!)
@@ -81,7 +104,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == "showDetail" { //смотрим куда идет переход
             let nvc = segue.destination as! NewPlaceController //кастим до нужного контроллера
             guard let index = tableView.indexPathForSelectedRow?.row else {return} //получаем индекс выбранной строки для редаетирования
-            nvc.currentPlace = places[index] //передаем на другой экран значение (в данном случае из массива places по индексу строки)
+            
+            var place = Place() // создаем пустой объект нашей модели
+            
+            if isFiltering{ //если мы ввели какойто поисковой запрос, то на экран выводим элементы из отфильтрованного массива
+                place = filteredPlaces[index]
+            } else { //если поисковой запрос пустой, то выводим полностью
+                place = places[index]
+            }
+            nvc.currentPlace = place //передаем на другой экран значение (в данном случае из массива places по индексу строки)
             
         }
     }
@@ -136,4 +167,24 @@ extension MainViewController {
             defPlaces.defaultPlaces()
             StorageManage.saveObject(defPlaces)
     }
+}
+
+extension MainViewController: UISearchResultsUpdating{ //делаем расширение для работы с поисковой строкой + реализуем обязательный метод
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContetntForSearchText(searchController.searchBar.text!) // при вводе значений в поисковую строку, вызывается данный метод и получая значение из строки поиска, запускаем функцию для фильтрации
+    }
+    
+    //создаем приватную функцию для непосредственной фильтрации нашего массива по поисковому запросу
+    private func filterContetntForSearchText(_ searchText: String){ //передаем внутрь поисковой текст
+        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText) //искать будем по предикату (т.к. такая возможность есть в БД Realm)
+        //name и location - наименование полей в БД(модели) по которым будем фильтровать
+        //CONTAINS - содержит (синтаксис фильтрации по предикату)
+        //[c] - означает, что мы не привязываем к регистру и ищем по лубым буквам
+        //%@ - элемент куда подставим переменную для фильтрации
+        //searchText - переменная которая заменит %@ и по ней будет происходить поиск
+        tableView.reloadData()
+    }
+    
+    
 }

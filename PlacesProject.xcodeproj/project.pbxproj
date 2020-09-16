@@ -18,6 +18,7 @@
 		3C1F66A224E70D1E001ACF9C /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F66A124E70D1E001ACF9C /* PlaceModel.swift */; };
 		3C1F66A824E9AF14001ACF9C /* NewPlaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F66A724E9AF14001ACF9C /* NewPlaceController.swift */; };
 		3C1F66AA24FEBD3B001ACF9C /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F66A924FEBD3B001ACF9C /* StorageManager.swift */; };
+		3C5815F72512798C005AC001 /* RaitingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5815F62512798B005AC001 /* RaitingControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		3C1F66A124E70D1E001ACF9C /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		3C1F66A724E9AF14001ACF9C /* NewPlaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaceController.swift; sourceTree = "<group>"; };
 		3C1F66A924FEBD3B001ACF9C /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		3C5815F62512798B005AC001 /* RaitingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaitingControl.swift; sourceTree = "<group>"; };
 		50624B66F24E58A88BF60AB1 /* Pods-PlacesProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlacesProject.debug.xcconfig"; path = "Target Support Files/Pods-PlacesProject/Pods-PlacesProject.debug.xcconfig"; sourceTree = "<group>"; };
 		B3DB6D4F5A1FEE5F2E4C5038 /* Pods_PlacesProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlacesProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB75904466E26FB793B5CC21 /* Pods-PlacesProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlacesProject.release.xcconfig"; path = "Target Support Files/Pods-PlacesProject/Pods-PlacesProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				3C1F66A124E70D1E001ACF9C /* PlaceModel.swift */,
 				3C1F66A724E9AF14001ACF9C /* NewPlaceController.swift */,
 				3C1F66A924FEBD3B001ACF9C /* StorageManager.swift */,
+				3C5815F62512798B005AC001 /* RaitingControl.swift */,
 				3C1F668F24E31E01001ACF9C /* Main.storyboard */,
 				3C1F669224E31E02001ACF9C /* Assets.xcassets */,
 				3C1F669424E31E02001ACF9C /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				3C1F66AA24FEBD3B001ACF9C /* StorageManager.swift in Sources */,
 				3C1F668A24E31E01001ACF9C /* AppDelegate.swift in Sources */,
 				3C1F66A824E9AF14001ACF9C /* NewPlaceController.swift in Sources */,
+				3C5815F72512798C005AC001 /* RaitingControl.swift in Sources */,
 				3C1F668C24E31E01001ACF9C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

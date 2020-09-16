@@ -29,8 +29,7 @@ class Place: Object {
         "Burger Heroes", "Kitchen", "Bonsai", "Дастархан",
         "Индокитай", "X.O", "Балкан Гриль", "Sherlock Holmes",
         "Speak Easy", "Morris Pub", "Вкусные истории",
-        "Классик", "Love&Life", "Шок", "Бочка"
-    ]
+        "Классик", "Love&Life", "Шок", "Бочка"]
 
     func defaultPlaces(){
         for name in restaurantNames {
