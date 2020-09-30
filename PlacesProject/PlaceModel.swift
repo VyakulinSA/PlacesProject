@@ -15,13 +15,15 @@ class Place: Object {
     @objc dynamic var type: String?
     @objc dynamic var imageData: Data?
     @objc dynamic var date = Date()
+    @objc dynamic var raiting = 0.00
     
-    convenience init(name: String, location: String?, type: String?, imageData: Data?){
+    convenience init(name: String, location: String?, type: String?, imageData: Data?, raiting: Double){
         self.init()
         self.name = name
         self.location = location
         self.type = type
         self.imageData = imageData
+        self.raiting = raiting
         
     }
     
@@ -35,7 +37,7 @@ class Place: Object {
         for name in restaurantNames {
             let image = UIImage(named: name)
             guard let imageData = image?.pngData() else {return}
-            let newPlace = Place(name: name, location: "Samara", type: "Bar", imageData: imageData)
+            let newPlace = Place(name: name, location: "Samara", type: "Bar", imageData: imageData, raiting: 0.00)
             
             StorageManage.saveObject(newPlace)
             

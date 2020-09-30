@@ -72,10 +72,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.nameLabel.text = place.name
         cell.locationLabel.text = place.location
         cell.typeLabel.text = place.type
+        cell.minRaitingControl.raiting = place.raiting
+
+        
+        
         return cell
     }
     
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true) //Чтобы после выделения ячейки выделение убиралось (необходимо когда тапая по ячейке мы переходим на другой экран и обратно) иначе будет оставаться выделение
+    }
     
     // Override to support conditional editing of the table view.
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -165,7 +172,6 @@ extension MainViewController {
         let defPlaces = Place()
         guard places.isEmpty else {return}
             defPlaces.defaultPlaces()
-            StorageManage.saveObject(defPlaces)
     }
 }
 

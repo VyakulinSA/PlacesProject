@@ -3,10 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "RaitingControl.raitingButtonTapped(button:):RaitingControl.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UIViewControllet.Type">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MainViewController.viewDidLoad():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "places.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "RaitingControl.setupButton():RaitingControl.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "vController">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

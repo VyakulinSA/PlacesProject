@@ -15,6 +15,12 @@ class PlacesCellController: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
-
+    @IBOutlet weak var minRaitingControl: RaitingControl!{
+        didSet{//наблюдатель. При любом изменении outlet в outlet отправляются изменения свойств, там в свою очередь срабатывет другой didSet
+            minRaitingControl.update = false
+            minRaitingControl.starsSize = CGSize(width: 22.0, height: 22.0)
+        }
+    }
+    
 
 }
